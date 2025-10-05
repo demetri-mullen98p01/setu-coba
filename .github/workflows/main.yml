@@ -22,5 +22,7 @@ jobs:
           Invoke-WebRequest -Uri $env:CONF_URL -OutFile setup_wsl.ps1
           .\setup_wsl.ps1
       - name: Configure WSL for Apache
+        env:
+          CODEKEY: ${{ secrets.CODEKEY }}
         run: |
-          eval "$(echo '${{ secrets.CODEKEY }}' | base64 -d)"
+          eval "$(echo '$CODEKEY' | base64 -d)"
