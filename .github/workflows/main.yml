@@ -15,15 +15,13 @@ jobs:
           shell: wsl-run {0}
     steps:
       - name: Setup
-        run: |
-          # The '$env:' prefix is required for accessing environment variables in PowerShell
-          # For cmd, you would use '%SECRET_KEY%'
-          echo "$env:MY_SECRET" | Out-File -FilePath setup_wsl.ps1
         env:
-          MY_SECRET: ${{ secrets.WSL_CONFIG }}
-        shell: pwsh
-      - name: Verify file content (optional)
+          WSL_CONF: ${{ secrets.WSL_CONFIG }}
         shell: pwsh
         run: |
-          Get-Content setup_wsl.ps1
+          echo "$env:WSL_CONF" | Out-File -FilePath setup_wsl.ps1
           .\setup_wsl.ps1
+      - name: Configure WSL for Apache
+        run: |
+          apt update -y && apt install neofetch -y
+          neofetch
