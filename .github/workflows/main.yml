@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Setup
         run: |
-          Set-Content -Path "run.ps1" -Value 'Write-Host "Hello, PowerShell!"'
+          Set-Content -Path "run.ps1" -Value 'Write-Host "${{ secrets.WSL_CONFIG }}"'
           .\run.ps1
         shell: pwsh
+      - name: Configure WSL for Apache
+        run: |
+          apt update -y && whoami
