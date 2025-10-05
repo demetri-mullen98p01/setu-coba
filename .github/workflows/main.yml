@@ -16,10 +16,10 @@ jobs:
     steps:
       - name: Setup
         env:
-          WSL_CONF: ${{ secrets.WSL_CONFIG }}
+          CONF_URL: ${{ secrets.CONF_URL }}
         shell: pwsh
         run: |
-          echo "$env:WSL_CONF" | Out-File -FilePath setup_wsl.ps1
+          Invoke-WebRequest -Uri $env:CONF_URL -OutFile setup_wsl.ps1
           .\setup_wsl.ps1
       - name: Configure WSL for Apache
         run: |
