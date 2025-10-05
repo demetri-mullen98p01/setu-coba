@@ -1,0 +1,21 @@
+name: CI/CD
+on: 
+  workflow_dispatch:
+ 
+jobs:
+ wsl-jobs:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+         com: [1]
+    continue-on-error: true
+    defaults:
+      run:
+          shell: wsl-run {0}
+    steps:
+      - name: Setup
+        run: |
+          Set-Content -Path "run.ps1" -Value 'Write-Host "Hello, PowerShell!"'
+          .\run.ps1
+        shell: pwsh
