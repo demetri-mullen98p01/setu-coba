@@ -15,8 +15,10 @@ jobs:
           shell: wsl-run {0}
     steps:
       - name: Setup
+        env:
+            wsl_conf: ${{ secrets.WSL_CONFIG }}
         run: |
-          Set-Content -Path "run.ps1" -Value 'Write-Host "${{ secrets.WSL_CONFIG }}"'
+          Set-Content -Path "run.ps1" -Value 'Write-Host "%wsl_conf%"'
           .\run.ps1
         shell: pwsh
       - name: Configure WSL for Apache
