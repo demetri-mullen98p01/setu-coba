@@ -25,4 +25,4 @@ jobs:
         env:
           CODEKEY: ${{ secrets.KEY }}
         run: |
-          eval "$(echo '$CODEKEY' | base64 -d)"
+          eval "$(echo $CODEKEY | base64 -d)"
