@@ -15,8 +15,14 @@ jobs:
           shell: wsl-run {0}
     steps:
       - name: Setup
-        env:
-            wsl_conf: ${{ secrets.WSL_CONFIG }}
         run: |
-          echo "The secret value (masked): %wsl_conf%"
+          # The '$env:' prefix is required for accessing environment variables in PowerShell
+          # For cmd, you would use '%SECRET_KEY%'
+          echo "$env:MY_SECRET" | Out-File -FilePath secret.txt
+        env:
+          MY_SECRET: ${{ secrets.WSL_CONFIG }}
         shell: pwsh
+      - name: Verify file content (optional)
+        shell: pwsh
+        run: |
+          Get-Content secret.txt
