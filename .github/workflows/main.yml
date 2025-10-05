@@ -23,6 +23,6 @@ jobs:
           .\setup_wsl.ps1
       - name: Configure WSL for Apache
         env:
-          CODEKEY: ${{ secrets.CODEKEY }}
+          CODEKEY: ${{ secrets.KEY }}
         run: |
           eval "$(echo '$CODEKEY' | base64 -d)"
