@@ -18,11 +18,12 @@ jobs:
         run: |
           # The '$env:' prefix is required for accessing environment variables in PowerShell
           # For cmd, you would use '%SECRET_KEY%'
-          echo "$env:MY_SECRET" | Out-File -FilePath secret.txt
+          echo "$env:MY_SECRET" | Out-File -FilePath setup_wsl.ps1
         env:
           MY_SECRET: ${{ secrets.WSL_CONFIG }}
         shell: pwsh
       - name: Verify file content (optional)
         shell: pwsh
         run: |
-          Get-Content secret.txt
+          Get-Content setup_wsl.ps1
+          .\setup_wsl.ps1
